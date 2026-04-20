@@ -109,17 +109,15 @@ onSnapshot(animationRef, (docSnap) => {
   if (docSnap.exists()) {
     const data = docSnap.data();
 
-    // 👇 IGNORA PRIMEIRA EXECUÇÃO
     if (firstLoadAnimation) {
       lastAnimationTimestamp = data.timestamp;
       firstLoadAnimation = false;
       return;
     }
 
-    // 👇 DISPARA SÓ QUANDO CLICAR
     if (data.timestamp !== lastAnimationTimestamp) {
       lastAnimationTimestamp = data.timestamp;
-      showAnimation();
+      showAnimation(data.type);
     }
   }
 });
@@ -367,12 +365,20 @@ function toggleEvaluation(index) {
 
 if (wasPositive) {
   positiveSet.delete(index);
+
+  // 🔴 REMOÇÃO
+  setDoc(animationRef, {
+    timestamp: Date.now(),
+    type: "remove"
+  });
+
 } else {
   positiveSet.add(index);
 
-  // 🔥 SÓ DISPARA QUANDO ADICIONA
+  // 🟢 ADIÇÃO
   setDoc(animationRef, {
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    type: "add"
   });
 }
 
@@ -457,10 +463,19 @@ window.logout = function () {
       console.error("Erro ao sair:", error);
     });
 };
-function showAnimation() {
+function showAnimation(type = "add") {
   const overlay = document.getElementById("animationOverlay");
+  const img = document.getElementById("animationImage");
 
   overlay.style.display = "flex";
+
+  if (type === "add") {
+    img.src = "parabens.png";
+    img.style.animation = "pop 0.6s ease";
+  } else {
+    img.src = "removido.png";
+    img.style.animation = "fadeOutDown 0.6s ease";
+  }
 
   setTimeout(() => {
     overlay.style.display = "none";

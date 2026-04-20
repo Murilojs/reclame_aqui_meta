@@ -412,4 +412,3 @@ window.logout = function () {
       console.error("Erro ao sair:", error);
     });
 };
-}

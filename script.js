@@ -449,7 +449,7 @@ function showAnimation() {
 
   setTimeout(() => {
     overlay.style.display = "none";
-  }, 1200);
+  }, 3000);
 }
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");

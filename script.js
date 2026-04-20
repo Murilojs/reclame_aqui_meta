@@ -470,15 +470,20 @@ function showAnimation(type = "add") {
 
   if (!overlay || !img) return;
 
+  // 🔥 trava qualquer animação anterior
+  img.style.animation = "none";
+  img.style.opacity = "1";
+  img.style.transform = "none";
+
+  // força reflow
+  void img.offsetWidth;
+
+  // 🔥 define imagem + animação
   if (type === "add") {
     img.src = "parabens.png";
-    img.style.animation = "none";
-    void img.offsetWidth;
     img.style.animation = "pop 0.6s ease";
   } else {
     img.src = "removido.png";
-    img.style.animation = "none";
-    void img.offsetWidth;
     img.style.animation = "fadeOutDown 0.6s ease";
   }
 
@@ -487,10 +492,14 @@ function showAnimation(type = "add") {
   setTimeout(() => {
     overlay.style.display = "none";
 
-    // 🔥 LIBERA PRA PRÓXIMA ANIMAÇÃO
+    // 🔥 reset final (IMPORTANTE)
+    img.style.animation = "none";
+    img.style.opacity = "1";
+    img.style.transform = "none";
+
     isAnimating = false;
 
-  }, 1500); // pode ajustar
+  }, 1200);
 }
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");

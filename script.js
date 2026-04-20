@@ -384,9 +384,7 @@ if (wasPositive) {
 
 state.positives = Array.from(positiveSet).sort((a, b) => a - b);
 render();
-  setDoc(animationRef, {
-  timestamp: Date.now()
-});
+
   showStatusMessage(
     wasPositive
       ? `Avaliacao ${index} voltou para o estado esperado.`

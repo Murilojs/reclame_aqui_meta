@@ -465,16 +465,30 @@ function showAnimation(type = "add") {
   const overlay = document.getElementById("animationOverlay");
   const img = document.getElementById("animationImage");
 
-  overlay.style.display = "flex";
+function showAnimation(type = "add") {
+  const overlay = document.getElementById("animationOverlay");
+  const img = document.getElementById("animationImage");
 
+  // 👇 TROCA ANTES DE MOSTRAR
   if (type === "add") {
     img.src = "parabens.png";
+    img.style.animation = "none";
+    void img.offsetWidth; // reset animação
     img.style.animation = "pop 0.6s ease";
   } else {
     img.src = "removido.png";
+    img.style.animation = "none";
+    void img.offsetWidth; // reset animação
     img.style.animation = "fadeOutDown 0.6s ease";
   }
 
+  // 👇 MOSTRA DEPOIS
+  overlay.style.display = "flex";
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 1500);
+}
   setTimeout(() => {
     overlay.style.display = "none";
   }, 5000);

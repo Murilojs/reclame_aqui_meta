@@ -105,6 +105,8 @@ let lastAnimationTimestamp = 0;
 
 let firstLoadAnimation = true;
 
+let isAnimating = false;
+
 onSnapshot(animationRef, (docSnap) => {
   if (docSnap.exists()) {
     const data = docSnap.data();
@@ -115,12 +117,11 @@ onSnapshot(animationRef, (docSnap) => {
       return;
     }
 
-    if (data.timestamp !== lastAnimationTimestamp) {
-      lastAnimationTimestamp = data.timestamp;
-      showAnimation(data.type);
-    }
-  }
-});
+if (data.timestamp !== lastAnimationTimestamp && !isAnimating) {
+  lastAnimationTimestamp = data.timestamp;
+  isAnimating = true;
+  showAnimation(data.type);
+}
 
 function initialize() {
   bindInputs();
@@ -467,7 +468,6 @@ function showAnimation(type = "add") {
 
   if (!overlay || !img) return;
 
-  // troca imagem antes de mostrar
   if (type === "add") {
     img.src = "parabens.png";
     img.style.animation = "none";
@@ -484,7 +484,11 @@ function showAnimation(type = "add") {
 
   setTimeout(() => {
     overlay.style.display = "none";
-  }, 5000);
+
+    // 🔥 LIBERA PRA PRÓXIMA ANIMAÇÃO
+    isAnimating = false;
+
+  }, 1500); // pode ajustar
 }
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");

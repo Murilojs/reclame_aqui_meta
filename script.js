@@ -19,6 +19,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 let userRole = null;
+function getCurrentMonth() {
+  const now = new Date();
+
+  const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+
+  return `${meses[now.getMonth()]}`;
+}
 
 const docRef = doc(db, "dashboard", "dados");
 
@@ -57,6 +67,9 @@ if (user) {
   document.getElementById("app").style.display = "block";
 
   document.getElementById("userEmail").textContent = user.email;
+
+  document.getElementById("currentMonth").textContent =
+  "Mês: " + getCurrentMonth();
 
     const docRefUser = doc(db, "users", user.email);
     const docSnap = await getDoc(docRefUser);

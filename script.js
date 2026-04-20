@@ -112,7 +112,7 @@ onSnapshot(animationRef, (docSnap) => {
     const data = docSnap.data();
 
     if (firstLoadAnimation) {
-      lastAnimationTimestamp = data.timestamp;
+      lastAnimationId = data.id;
       firstLoadAnimation = false;
       return;
     }

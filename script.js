@@ -62,7 +62,7 @@ if (user) {
     const docSnap = await getDoc(docRefUser);
 
     if (docSnap.exists()) {
-      userRole = docSnap.data().role;
+      userRole = docSnap.data().role || "operador";
       aplicarPermissoes();
     }
   } else {

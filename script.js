@@ -506,6 +506,7 @@ setTimeout(() => {
 setTimeout(() => {
   overlay.style.display = "none";
 }, 2600); // 👈 tempo total
+    
 }
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");

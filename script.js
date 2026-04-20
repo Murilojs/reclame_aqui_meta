@@ -187,23 +187,23 @@ function bindInputs() {
   ];
 
   bindings.forEach(({ element, key, options, onCommit }) => {
-    element.addEventListener("input", () => {
-      state[key] = normalizeNumber(element.value, state[key], options);
+element.addEventListener("input", () => {
+  state[key] = normalizeNumber(element.value, state[key], options);
 
-      if (key === "projectionCurrent") {
-        syncProjectionFields();
-      }
+  if (key === "projectionCurrent") {
+    syncProjectionFields();
+  }
 
-      if (key === "totalExpected") {
-        onCommit?.();
-      }
+  if (key === "totalExpected") {
+    onCommit?.();
+  }
 
-      if (key === "previousEvaluations") {
-        trimTodayEvaluationsToAvailableSlots();
-      }
+  if (key === "previousEvaluations") {
+    trimTodayEvaluationsToAvailableSlots();
+  }
 
-      render(false);
-    });
+  render(); // 👈 AGORA SALVA EM TEMPO REAL
+});
 
     element.addEventListener("change", () => {
       state[key] = normalizeNumber(element.value, state[key], options);

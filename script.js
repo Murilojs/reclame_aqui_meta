@@ -425,3 +425,9 @@ window.logout = function () {
       console.error("Erro ao sair:", error);
     });
 };
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.getElementById("currentMonth");
+  if (el) {
+    el.textContent = "Mês: " + getCurrentMonth();
+  }
+});

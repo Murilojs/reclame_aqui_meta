@@ -403,7 +403,7 @@ window.fazerLogin = function () {
       console.error(error);
     });
 };
-function logout() {
+window.logout = function () {
   signOut(auth)
     .then(() => {
       console.log("Saiu com sucesso");
@@ -411,4 +411,5 @@ function logout() {
     .catch((error) => {
       console.error("Erro ao sair:", error);
     });
+};
 }

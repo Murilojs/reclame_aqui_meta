@@ -1,18 +1,16 @@
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-  
-  <div>
-    👤 <span id="userEmail"></span>
-  </div>
-
-  <button onclick="logout()" style="padding:8px 12px;background:#ff4d4f;color:white;border:none;border-radius:6px;cursor:pointer;">
-    Sair
-  </button>
-
-</div>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<div id="loginScreen" style="display:flex;justify-content:center;align-items:center;height:100vh;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Avaliações do Mês</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loginScreen" style="display:flex;justify-content:center;align-items:center;height:100vh;">
   <div style="background:white;padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.1);width:300px;">
     <h2 style="margin-bottom:20px;text-align:center;">Login</h2>
 
@@ -24,15 +22,16 @@
     </button>
   </div>
 </div>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard de Avaliações do Mês</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <div id="app" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+  <div>
+    👤 <span id="userEmail"></span>
+  </div>
+
+  <button onclick="logout()" style="padding:8px 12px;background:#ff4d4f;color:white;border:none;border-radius:6px;cursor:pointer;">
+    Sair
+  </button>
+</div>
   <div class="page-shell">
     <header class="hero" aria-labelledby="page-title">
       <div class="hero__content">

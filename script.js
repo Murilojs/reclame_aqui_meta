@@ -382,6 +382,7 @@ setDoc(animationRef, {
   id: Date.now(),
   type: "add"
 });
+}
 
 state.positives = Array.from(positiveSet).sort((a, b) => a - b);
 render();

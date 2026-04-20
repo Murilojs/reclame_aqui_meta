@@ -490,34 +490,23 @@ function showAnimation(type = "add") {
     // 🔴 REMOVIDO (SEM animation, só transition)
     img.src = "removido.png";
 
-    overlay.style.display = "flex";
+// aparece
+overlay.style.display = "flex";
 
-    // começa visível
-    img.style.opacity = "1";
-    img.style.transform = "translateY(0)";
+// fica visível por mais tempo
+setTimeout(() => {
 
-    // aplica transição suave
-    img.style.transition = "all 0.6s ease";
+  // começa a sumir depois
+  img.style.opacity = "0";
+  img.style.transform = "translateY(40px)";
 
-    // força reflow
-    void img.offsetWidth;
+}, 2000); // 👈 tempo VISÍVEL
 
-    // anima manualmente (SEM flicker)
-    img.style.opacity = "0";
-    img.style.transform = "translateY(40px)";
-
-    setTimeout(() => {
-      overlay.style.display = "none";
-      }, 5000);
-
-      // reset
-      img.style.transition = "none";
-      img.style.opacity = "1";
-      img.style.transform = "none";
-
-    }, 1000);
-  }
-}
+// remove da tela
+setTimeout(() => {
+  overlay.style.display = "none";
+}, 2600); // 👈 tempo total
+    
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");
   if (el) {

@@ -1,3 +1,4 @@
+let initialized = false;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -76,7 +77,13 @@ onSnapshot(docRef, (docSnap) => {
     state = defaultState;
   }
 
+if (!initialized) {
   initialize();
+  initialized = true;
+} else {
+  syncInputsFromState();
+  render(false);
+}
 });
 
 function initialize() {

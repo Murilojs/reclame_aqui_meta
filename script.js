@@ -101,9 +101,16 @@ if (!initialized) {
   render(false);
 }
 });
+let lastAnimationTimestamp = 0;
+
 onSnapshot(animationRef, (docSnap) => {
   if (docSnap.exists()) {
-    showAnimation();
+    const data = docSnap.data();
+
+    if (data.timestamp !== lastAnimationTimestamp) {
+      lastAnimationTimestamp = data.timestamp;
+      showAnimation();
+    }
   }
 });
 

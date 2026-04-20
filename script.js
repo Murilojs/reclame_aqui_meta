@@ -1,3 +1,4 @@
+import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 let initialized = false;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -51,9 +52,11 @@ let state = defaultState;
 let toastTimeoutId = 0;
 
 onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("app").style.display = "block";
+if (user) {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  document.getElementById("userEmail").textContent = user.email;
 
     const docRefUser = doc(db, "users", user.email);
     const docSnap = await getDoc(docRefUser);
@@ -400,3 +403,12 @@ window.fazerLogin = function () {
       console.error(error);
     });
 };
+function logout() {
+  signOut(auth)
+    .then(() => {
+      console.log("Saiu com sucesso");
+    })
+    .catch((error) => {
+      console.error("Erro ao sair:", error);
+    });
+}

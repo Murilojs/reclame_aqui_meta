@@ -497,7 +497,7 @@ function showAnimation(type = "add") {
     img.style.transform = "translateY(0)";
 
     // aplica transição suave
-    img.style.transition = "all 0.5s ease";
+    img.style.transition = "all 0.6s ease";
 
     // força reflow
     void img.offsetWidth;
@@ -514,7 +514,7 @@ function showAnimation(type = "add") {
       img.style.opacity = "1";
       img.style.transform = "none";
 
-    }, 500);
+    }, 5000);
   }
 }
 document.addEventListener("DOMContentLoaded", () => {

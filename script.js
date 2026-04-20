@@ -469,36 +469,53 @@ function showAnimation(type = "add") {
 
   if (!overlay || !img) return;
 
-  // 🔥 trava qualquer animação anterior
-  img.style.animation = "none";
+  // reset
+  img.style.transition = "none";
   img.style.opacity = "1";
-  img.style.transform = "none";
-
-  // força reflow
+  img.style.transform = "scale(1)";
   void img.offsetWidth;
 
-  // 🔥 define imagem + animação
   if (type === "add") {
+    // 🎉 PARABENS (continua com animação)
     img.src = "parabens.png";
     img.style.animation = "pop 0.6s ease";
+
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 1200);
+
   } else {
+    // 🔴 REMOVIDO (SEM animation, só transition)
     img.src = "removido.png";
-    img.style.animation = "fadeOutDown 0.6s ease";
-  }
 
-  overlay.style.display = "flex";
+    overlay.style.display = "flex";
 
-  setTimeout(() => {
-    overlay.style.display = "none";
-
-    // 🔥 reset final (IMPORTANTE)
-    img.style.animation = "none";
+    // começa visível
     img.style.opacity = "1";
-    img.style.transform = "none";
+    img.style.transform = "translateY(0)";
 
-    isAnimating = false;
+    // aplica transição suave
+    img.style.transition = "all 0.5s ease";
 
-  }, 1200);
+    // força reflow
+    void img.offsetWidth;
+
+    // anima manualmente (SEM flicker)
+    img.style.opacity = "0";
+    img.style.transform = "translateY(40px)";
+
+    setTimeout(() => {
+      overlay.style.display = "none";
+
+      // reset
+      img.style.transition = "none";
+      img.style.opacity = "1";
+      img.style.transform = "none";
+
+    }, 500);
+  }
 }
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");

@@ -101,7 +101,7 @@ if (!initialized) {
   render(false);
 }
 });
-let lastAnimationTimestamp = 0;
+let lastAnimationId = null;
 
 let firstLoadAnimation = true;
 
@@ -117,11 +117,10 @@ onSnapshot(animationRef, (docSnap) => {
       return;
     }
 
-if (data.timestamp !== lastAnimationTimestamp && !isAnimating) {
-  lastAnimationTimestamp = data.timestamp;
-  isAnimating = true;
+if (data.id !== lastAnimationId) {
+  lastAnimationId = data.id;
   showAnimation(data.type);
-    }
+}
   }
 });
 
@@ -370,20 +369,19 @@ if (wasPositive) {
   positiveSet.delete(index);
 
   // 🔴 REMOÇÃO
-  setDoc(animationRef, {
-    timestamp: Date.now(),
-    type: "remove"
-  });
+setDoc(animationRef, {
+  id: Date.now(), // 👈 novo
+  type: "remove"
+});
 
 } else {
   positiveSet.add(index);
 
   // 🟢 ADIÇÃO
-  setDoc(animationRef, {
-    timestamp: Date.now(),
-    type: "add"
-  });
-}
+setDoc(animationRef, {
+  id: Date.now(),
+  type: "add"
+});
 
 state.positives = Array.from(positiveSet).sort((a, b) => a - b);
 render();

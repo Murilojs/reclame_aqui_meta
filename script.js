@@ -51,8 +51,6 @@ const elements = {
 let state = defaultState;
 let toastTimeoutId = 0;
 
-initialize();
-
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     document.getElementById("loginScreen").style.display = "none";
@@ -74,9 +72,11 @@ onAuthStateChanged(auth, async (user) => {
 onSnapshot(docRef, (docSnap) => {
   if (docSnap.exists()) {
     state = sanitizeState(docSnap.data());
-    syncInputsFromState();
-    render(false);
+  } else {
+    state = defaultState;
   }
+
+  initialize();
 });
 
 function initialize() {

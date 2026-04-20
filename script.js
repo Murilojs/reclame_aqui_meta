@@ -103,10 +103,20 @@ if (!initialized) {
 });
 let lastAnimationTimestamp = 0;
 
+let firstLoadAnimation = true;
+
 onSnapshot(animationRef, (docSnap) => {
   if (docSnap.exists()) {
     const data = docSnap.data();
 
+    // 👇 IGNORA PRIMEIRA EXECUÇÃO
+    if (firstLoadAnimation) {
+      lastAnimationTimestamp = data.timestamp;
+      firstLoadAnimation = false;
+      return;
+    }
+
+    // 👇 DISPARA SÓ QUANDO CLICAR
     if (data.timestamp !== lastAnimationTimestamp) {
       lastAnimationTimestamp = data.timestamp;
       showAnimation();

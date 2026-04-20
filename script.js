@@ -1,3 +1,22 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6B1h5Q0Necqu-n7I9kG7vmYCzGKmlWmk",
+    authDomain: "meta-reclame-aqui.firebaseapp.com",
+    projectId: "meta-reclame-aqui",
+    storageBucket: "meta-reclame-aqui.firebasestorage.app",
+    messagingSenderId: "314080655380",
+    appId: "1:314080655380:web:534068c653400af2a30f01",
+    measurementId: "G-JSZK9Y4D0K"
+  };
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const docRef = doc(db, "dashboard", "dados");
+
+
 const STORAGE_KEY = "jornada-cliente-avaliacoes";
 const MASCOT_IMAGE_SRC = "otimo.ad07c69b.png";
 
@@ -25,10 +44,18 @@ const elements = {
   statusMessage: document.querySelector("#statusMessage"),
 };
 
-let state = loadState();
+let state = defaultState;
 let toastTimeoutId = 0;
 
 initialize();
+
+onSnapshot(docRef, (docSnap) => {
+  if (docSnap.exists()) {
+    state = sanitizeState(docSnap.data());
+    syncInputsFromState();
+    render(false);
+  }
+});
 
 function initialize() {
   bindInputs();
@@ -287,7 +314,7 @@ function toggleEvaluation(index) {
 }
 
 function persistState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  setDoc(docRef, state);
 }
 
 function showStatusMessage(message) {

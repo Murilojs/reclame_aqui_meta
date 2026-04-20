@@ -514,7 +514,7 @@ function showAnimation(type = "add") {
       img.style.opacity = "1";
       img.style.transform = "none";
 
-    }, 5000);
+    }, 1000);
   }
 }
 document.addEventListener("DOMContentLoaded", () => {

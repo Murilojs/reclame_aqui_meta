@@ -484,7 +484,7 @@ function showAnimation(type = "add") {
 
     setTimeout(() => {
       overlay.style.display = "none";
-    }, 1200);
+    }, 5000);
 
   } else {
     // 🔴 REMOVIDO (SEM animation, só transition)

@@ -508,6 +508,7 @@ function showAnimation(type = "add") {
 
     setTimeout(() => {
       overlay.style.display = "none";
+      }, 5000);
 
       // reset
       img.style.transition = "none";

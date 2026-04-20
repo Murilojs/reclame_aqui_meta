@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Avaliações do Mês</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero" aria-labelledby="page-title">
+      <div class="hero__content">
+        <h1 id="page-title">DASHBOARD DE AVALIAÇÕES POSITIVAS</h1>
+      </div>
+
+      <div class="hero__metrics" aria-label="Métricas principais">
+        <article class="metric-card" aria-labelledby="expectedScoreLabel">
+          <span id="expectedScoreLabel" class="metric-card__label">Nota esperada:</span>
+          <span class="metric-card__value-wrap">
+            <strong id="expectedScoreDisplay" class="metric-card__value">8.7</strong>
+          </span>
+          <span class="metric-card__hint">
+            O valor é atualizado pelo campo "Nota esperada" no painel abaixo.
+          </span>
+        </article>
+
+        <article class="metric-card" aria-labelledby="projectionHeaderLabel">
+          <span id="projectionHeaderLabel" class="metric-card__label">Projeção atual:</span>
+          <span class="metric-card__value-wrap">
+            <strong id="projectionCurrentHeader" class="metric-card__value">7.3</strong>
+          </span>
+          <span class="metric-card__hint">
+            O valor é atualizado pelo campo "Projeção atual" no painel abaixo.
+          </span>
+        </article>
+      </div>
+    </header>
+
+    <main class="dashboard" aria-label="Painel principal">
+      <section class="panel panel--summary" aria-labelledby="summary-title">
+        <div class="panel__header panel__header--compact">
+          <div>
+            <p class="panel__eyebrow">Resumo do mês</p>
+            <h2 id="summary-title">Visão rápida</h2>
+          </div>
+        </div>
+
+        <div class="summary-grid summary-grid--three" aria-live="polite">
+          <article class="summary-card">
+            <span class="summary-card__label">Avaliações do mês</span>
+            <strong class="summary-card__value" id="positiveCount">0</strong>
+          </article>
+
+          <article class="summary-card">
+            <span class="summary-card__label">Cobertura do total</span>
+            <strong class="summary-card__value" id="coveragePercent">0%</strong>
+          </article>
+
+          <article class="summary-card">
+            <span class="summary-card__label">Meta diária x realizadas</span>
+            <strong class="summary-card__value" id="dailyStatus">0 / 0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel panel--grid" aria-labelledby="grid-title">
+        <div class="panel__header panel__header--compact">
+          <div>
+            <h2 id="grid-title">Avaliações positivas</h2>
+          </div>
+        </div>
+
+        <div class="legend" aria-label="Legenda da grade">
+          <div class="legend__item">
+            <span class="legend__icon legend__icon--positive" aria-hidden="true"></span>
+            <span>Positiva</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__icon legend__icon--expected" aria-hidden="true"></span>
+            <span>Esperada</span>
+          </div>
+        </div>
+
+        <p id="gridAssistiveText" class="sr-only">
+          Cada item é um botão. Itens verdes já foram avaliados positivamente. Itens claros
+          representam avaliações esperadas.
+        </p>
+
+        <div
+          id="evaluationGrid"
+          class="evaluation-grid"
+          role="list"
+          aria-describedby="gridAssistiveText"
+        ></div>
+      </section>
+
+      <section class="panel panel--hidden-controls" aria-labelledby="advanced-title">
+        <details class="advanced-controls">
+          <summary id="advanced-title">Ajustes avançados</summary>
+          <div class="advanced-controls__content">
+            <div class="panel__header panel__header--advanced">
+              <div>
+                <p class="panel__eyebrow">Configurações</p>
+                <h2>Parâmetros do acompanhamento</h2>
+              </div>
+              <p class="panel__copy">
+                Todas as entradas aceitam teclado e atualizam a visualização em tempo real.
+              </p>
+            </div>
+
+            <form class="controls-grid" id="controlsForm">
+              <label class="control-field" for="expectedScore">
+                <span class="control-field__label">Nota esperada</span>
+                <input
+                  id="expectedScore"
+                  name="expectedScore"
+                  type="number"
+                  lang="en"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  inputmode="decimal"
+                >
+              </label>
+
+              <label class="control-field" for="projectionCurrent">
+                <span class="control-field__label">Projeção atual</span>
+                <input
+                  id="projectionCurrent"
+                  name="projectionCurrent"
+                  type="number"
+                  lang="en"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  inputmode="decimal"
+                >
+              </label>
+
+              <label class="control-field" for="dailyGoal">
+                <span class="control-field__label">Meta do dia</span>
+                <input
+                  id="dailyGoal"
+                  name="dailyGoal"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                >
+              </label>
+
+              <label class="control-field" for="totalExpected">
+                <span class="control-field__label">Total de avaliações esperadas</span>
+                <input
+                  id="totalExpected"
+                  name="totalExpected"
+                  type="number"
+                  min="1"
+                  step="1"
+                  inputmode="numeric"
+                >
+              </label>
+            </form>
+
+            <label class="control-field" for="previousEvaluations">
+              <span class="control-field__label">Avaliações feitas em dias anteriores</span>
+              <input
+                id="previousEvaluations"
+                name="previousEvaluations"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                aria-describedby="previousEvaluationsHelp"
+              >
+              <span id="previousEvaluationsHelp" class="control-field__hint">
+                Esse valor entra no total mensal, mas não altera a meta diária de hoje.
+              </span>
+            </label>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <div id="statusMessage" class="status-toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

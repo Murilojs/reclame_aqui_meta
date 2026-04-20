@@ -21,8 +21,6 @@ let userRole = null;
 
 const docRef = doc(db, "dashboard", "dados");
 
-
-const STORAGE_KEY = "jornada-cliente-avaliacoes";
 const MASCOT_IMAGE_SRC = "otimo.ad07c69b.png";
 
 const defaultState = {
@@ -89,7 +87,7 @@ if (!initialized) {
 function initialize() {
   bindInputs();
   syncInputsFromState();
-  render();
+  render(false);
 }
 
 function loadState() {

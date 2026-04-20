@@ -55,16 +55,19 @@ initialize();
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
     const docRefUser = doc(db, "users", user.email);
     const docSnap = await getDoc(docRefUser);
 
     if (docSnap.exists()) {
       userRole = docSnap.data().role;
-      console.log("Tipo de usuário:", userRole);
       aplicarPermissoes();
     }
   } else {
-    console.log("Usuário não logado");
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("app").style.display = "none";
   }
 });
 
@@ -379,3 +382,16 @@ function login(email, senha) {
       console.error(error);
     });
 }
+window.fazerLogin = function () {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  signInWithEmailAndPassword(auth, email, senha)
+    .then((userCredential) => {
+      console.log("Logado:", userCredential.user.email);
+    })
+    .catch((error) => {
+      alert("Email ou senha inválidos");
+      console.error(error);
+    });
+};

@@ -1,5 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyD6B1h5Q0Necqu-n7I9kG7vmYCzGKmlWmk",
@@ -13,6 +15,8 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+let userRole = null;
 
 const docRef = doc(db, "dashboard", "dados");
 
@@ -48,6 +52,21 @@ let state = defaultState;
 let toastTimeoutId = 0;
 
 initialize();
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const docRefUser = doc(db, "users", user.email);
+    const docSnap = await getDoc(docRefUser);
+
+    if (docSnap.exists()) {
+      userRole = docSnap.data().role;
+      console.log("Tipo de usuário:", userRole);
+      aplicarPermissoes();
+    }
+  } else {
+    console.log("Usuário não logado");
+  }
+});
 
 onSnapshot(docRef, (docSnap) => {
   if (docSnap.exists()) {
@@ -329,4 +348,34 @@ function showStatusMessage(message) {
 
 function getMascotMarkup(index) {
   return `<img src="${MASCOT_IMAGE_SRC}" alt="" loading="lazy" decoding="async">`;
+}
+
+function aplicarPermissoes() {
+  const isGestor = userRole === "gestor";
+
+  // trava inputs
+  Object.values(elements).forEach((el) => {
+    if (el && el.tagName === "INPUT") {
+      el.disabled = !isGestor;
+    }
+  });
+
+  // trava cliques nas avaliações
+  if (!isGestor) {
+    document.querySelectorAll(".evaluation-item").forEach((item) => {
+      item.style.pointerEvents = "none";
+      item.style.opacity = "0.6";
+    });
+  }
+}
+
+function login(email, senha) {
+  signInWithEmailAndPassword(auth, email, senha)
+    .then((userCredential) => {
+      console.log("Logado com sucesso:", userCredential.user.email);
+    })
+    .catch((error) => {
+      alert("Erro no login");
+      console.error(error);
+    });
 }

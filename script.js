@@ -365,14 +365,19 @@ function toggleEvaluation(index) {
   const positiveSet = new Set(state.positives);
   const wasPositive = positiveSet.has(index);
 
-  if (wasPositive) {
-    positiveSet.delete(index);
-  } else {
-    positiveSet.add(index);
-  }
+if (wasPositive) {
+  positiveSet.delete(index);
+} else {
+  positiveSet.add(index);
 
-  state.positives = Array.from(positiveSet).sort((a, b) => a - b);
-  render();
+  // 🔥 SÓ DISPARA QUANDO ADICIONA
+  setDoc(animationRef, {
+    timestamp: Date.now()
+  });
+}
+
+state.positives = Array.from(positiveSet).sort((a, b) => a - b);
+render();
   setDoc(animationRef, {
   timestamp: Date.now()
 });

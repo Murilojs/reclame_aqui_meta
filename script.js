@@ -32,6 +32,8 @@ function getCurrentMonth() {
 
 const docRef = doc(db, "dashboard", "dados");
 
+const animationRef = doc(db, "dashboard", "animation");
+
 const MASCOT_IMAGE_SRC = "otimo.ad07c69b.png";
 
 const defaultState = {
@@ -98,6 +100,11 @@ if (!initialized) {
   syncInputsFromState();
   render(false);
 }
+});
+onSnapshot(animationRef, (docSnap) => {
+  if (docSnap.exists()) {
+    showAnimation();
+  }
 });
 
 function initialize() {
@@ -349,6 +356,9 @@ function toggleEvaluation(index) {
 
   state.positives = Array.from(positiveSet).sort((a, b) => a - b);
   render();
+  setDoc(animationRef, {
+  timestamp: Date.now()
+});
   showStatusMessage(
     wasPositive
       ? `Avaliacao ${index} voltou para o estado esperado.`
@@ -425,6 +435,15 @@ window.logout = function () {
       console.error("Erro ao sair:", error);
     });
 };
+function showAnimation() {
+  const overlay = document.getElementById("animationOverlay");
+
+  overlay.style.display = "flex";
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 1200);
+}
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("currentMonth");
   if (el) {

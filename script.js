@@ -121,7 +121,9 @@ if (data.timestamp !== lastAnimationTimestamp && !isAnimating) {
   lastAnimationTimestamp = data.timestamp;
   isAnimating = true;
   showAnimation(data.type);
-}
+    }
+  }
+});
 
 function initialize() {
   bindInputs();

@@ -451,13 +451,11 @@ button {
   font-size: 0.9rem;
   font-weight: 800;
 
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85); /* 👈 MAIS LEGÍVEL */
 
-  background: rgba(255, 255, 255, 0.08); /* leve, elegante */
+  background: rgba(255, 255, 255, 0.12); /* 👈 MAIS PRESENTE */
 
-  border: 1px solid rgba(255, 255, 255, 0.15); /* 👈 fino e clean */
-
-  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.25); /* 👈 MAIS DEFINIDO */
 }
 
 .evaluation-item__caption {

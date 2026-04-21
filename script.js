@@ -385,42 +385,35 @@ function toggleEvaluation(index) {
   const positiveSet = new Set(state.positives);
   const wasPositive = positiveSet.has(index);
 
-if (wasPositive) {
-  positiveSet.delete(index);
+  if (wasPositive) {
+    positiveSet.delete(index);
 
-  // 🔴 REMOÇÃO
-setDoc(animationRef, {
-  id: Date.now(), // 👈 novo
-  type: "remove"
-});
+    // 🔴 REMOÇÃO
+    setDoc(animationRef, {
+      id: Date.now(),
+      type: "remove"
+    });
 
-} else {
-  positiveSet.add(index);
+  } else {
+    positiveSet.add(index);
 
-  // 🟢 ADIÇÃO
-setDoc(animationRef, {
-  id: Date.now(),
-  type: "add"
-});
-} else {
-  positiveSet.add(index);
+    // 🟢 SOM
+    const audio = document.getElementById("successSound");
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    }
 
-  // 🟢 SOM
-  const audio = document.getElementById("successSound");
-  if (audio) {
-    audio.currentTime = 0;
-    audio.play();
+    // 🟢 ANIMAÇÃO
+    setDoc(animationRef, {
+      id: Date.now(),
+      type: "add"
+    });
   }
 
-  // 🟢 ANIMAÇÃO FIREBASE
-  setDoc(animationRef, {
-    id: Date.now(),
-    type: "add"
-  });
-}
-
-state.positives = Array.from(positiveSet).sort((a, b) => a - b);
-render();
+  state.positives = Array.from(positiveSet).sort((a, b) => a - b);
+  render();
 
   showStatusMessage(
     wasPositive

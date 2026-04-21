@@ -414,7 +414,9 @@ button {
 }
 
 .evaluation-item--expected .evaluation-item__visual {
-  opacity: 0.8;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px dashed rgba(255, 255, 255, 0.5);
 }
 
 .evaluation-item__visual {

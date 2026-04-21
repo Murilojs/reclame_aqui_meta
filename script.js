@@ -92,7 +92,7 @@ onSnapshot(docRef, (docSnap) => {
     state = sanitizeState(docSnap.data());
     const data = docSnap.data();
 
-if (data.reclameAqui) {
+if (data.reclameAqui !== undefined) {
   updateRA(data.reclameAqui);
 }
   } else {
@@ -241,20 +241,6 @@ function bindInputs() {
 },
   ];
 
-  const raInput = document.getElementById("raInput");
-
-if (raInput) {
-  raInput.addEventListener("input", async (e) => {
-    const value = parseFloat(e.target.value);
-
-    updateRA(value);
-
-    await setDoc(doc(db, "dashboard", "dados"), {
-      reclameAqui: value
-    }, { merge: true });
-  });
-}
-
   bindings.forEach(({ element, key, options, onCommit }) => {
 element.addEventListener("input", () => {
   state[key] = normalizeNumber(element.value, state[key], options);
@@ -307,10 +293,10 @@ function syncInputsFromState() {
   elements.previousEvaluations.value = state.previousEvaluations;
   syncExpectedScoreDisplay();
   syncProjectionFields();
-}
-const raInput = document.getElementById("raInput");
-if (raInput) {
-  raInput.value = state.reclameAqui.toFixed(1);
+  const raInput = document.getElementById("raInput");
+  if (raInput) {
+    raInput.value = state.reclameAqui.toFixed(1);
+  }
 }
 
 function syncProjectionFields() {

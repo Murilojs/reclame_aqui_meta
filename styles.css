@@ -451,12 +451,15 @@ button {
   border-radius: 50%;
 
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 800;
 
-  color: #ffffff; /* 👈 MAIS FORTE */
-  background: rgba(0, 0, 0, 0.3); /* 👈 CONTRASTE */
+  color: rgba(255, 255, 255, 0.9);
 
-  border: 2px dashed rgba(255, 255, 255, 0.6); /* 👈 ESTILO "FALTANDO" */
+  background: rgba(255, 255, 255, 0.08); /* leve, elegante */
+
+  border: 1px solid rgba(255, 255, 255, 0.15); /* 👈 fino e clean */
+
+  backdrop-filter: blur(2px);
 }
 
 .evaluation-item__caption {

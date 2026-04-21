@@ -61,6 +61,22 @@
             O valor é atualizado pelo campo "Projeção atual" no painel abaixo.
           </span>
         </article>
+
+        <article class="metric-card">
+  <span class="metric-card__label">Reclame Aqui</span>
+
+  <div style="display:flex; align-items:center; gap:10px;">
+    
+    <img id="raIcon" src="ervilho-bom.png" style="width:40px; height:40px;">
+
+    <div>
+      <div id="raScore" class="metric-card__value">--</div>
+      <div id="raStatus" class="metric-card__hint">--</div>
+    </div>
+
+  </div>
+</article>
+        
       </div>
     </header>
 
@@ -165,6 +181,16 @@
                 >
               </label>
 
+              <label class="control-field">
+  <span class="control-field__label">Nota Reclame Aqui</span>
+  <input
+    id="raInput"
+    type="number"
+    step="0.1"
+    placeholder="Ex: 7.5"
+  >
+</label>
+              
               <label class="control-field" for="dailyGoal">
                 <span class="control-field__label">Meta do dia</span>
                 <input

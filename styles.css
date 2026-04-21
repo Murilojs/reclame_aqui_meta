@@ -414,9 +414,7 @@ button {
 }
 
 .evaluation-item--expected .evaluation-item__visual {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px dashed rgba(255, 255, 255, 0.5);
+  opacity: 0.35; /* 👈 deixa claramente "não preenchido" */
 }
 
 .evaluation-item__visual {

@@ -89,6 +89,11 @@ if (user) {
 onSnapshot(docRef, (docSnap) => {
   if (docSnap.exists()) {
     state = sanitizeState(docSnap.data());
+    const data = docSnap.data();
+
+if (data.reclameAqui) {
+  updateRA(data.reclameAqui);
+}
   } else {
     state = defaultState;
   }
@@ -225,6 +230,20 @@ function bindInputs() {
       options: { min: 0, integer: true },
     },
   ];
+
+  const raInput = document.getElementById("raInput");
+
+if (raInput) {
+  raInput.addEventListener("input", async (e) => {
+    const value = parseFloat(e.target.value);
+
+    updateRA(value);
+
+    await setDoc(doc(db, "dashboard", "dados"), {
+      reclameAqui: value
+    }, { merge: true });
+  });
+}
 
   bindings.forEach(({ element, key, options, onCommit }) => {
 element.addEventListener("input", () => {
@@ -516,3 +535,20 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = "Mês: " + getCurrentMonth();
   }
 });
+function getRAStatus(score) {
+  if (score < 5) return { text: "Não Recomendada", icon: "ervilho-ruim.png" };
+  if (score < 6) return { text: "Ruim", icon: "ervilho-ruim.png" };
+  if (score < 7) return { text: "Regular", icon: "ervilho-regular.png" };
+  if (score < 8) return { text: "Bom", icon: "ervilho-bom.png" };
+  return { text: "Ótimo", icon: "ervilho-otimo.png" };
+}
+
+function updateRA(score) {
+  if (!score) return;
+
+  const status = getRAStatus(score);
+
+  document.getElementById("raScore").textContent = score.toFixed(1);
+  document.getElementById("raStatus").textContent = status.text;
+  document.getElementById("raIcon").src = status.icon;
+}

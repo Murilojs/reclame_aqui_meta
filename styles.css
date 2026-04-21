@@ -461,7 +461,7 @@ button {
 .evaluation-item__caption {
   font-size: 0.75rem;
   font-weight: 800;
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.6); /* 👈 mais escuro */
   line-height: 1;
 }
 

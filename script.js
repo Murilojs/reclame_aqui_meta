@@ -402,6 +402,21 @@ setDoc(animationRef, {
   id: Date.now(),
   type: "add"
 });
+} else {
+  positiveSet.add(index);
+
+  // 🟢 SOM
+  const audio = document.getElementById("successSound");
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  // 🟢 ANIMAÇÃO FIREBASE
+  setDoc(animationRef, {
+    id: Date.now(),
+    type: "add"
+  });
 }
 
 state.positives = Array.from(positiveSet).sort((a, b) => a - b);

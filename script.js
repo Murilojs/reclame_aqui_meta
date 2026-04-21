@@ -43,6 +43,7 @@ const defaultState = {
   totalExpected: 160,
   previousEvaluations: 0,
   positives: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  reclameAqui: 0,
 };
 
 const elements = {
@@ -183,6 +184,10 @@ function sanitizeState(rawState) {
       { min: 0, integer: true }
     ),
     positives,
+    reclameAqui: normalizeNumber(rawState.reclameAqui, 0, {
+  min: 0,
+  max: 10,
+}),
   };
 }
 
@@ -229,6 +234,11 @@ function bindInputs() {
       key: "previousEvaluations",
       options: { min: 0, integer: true },
     },
+    {
+  element: document.getElementById("raInput"),
+  key: "reclameAqui",
+  options: { min: 0, max: 10 }
+},
   ];
 
   const raInput = document.getElementById("raInput");
@@ -298,6 +308,10 @@ function syncInputsFromState() {
   syncExpectedScoreDisplay();
   syncProjectionFields();
 }
+const raInput = document.getElementById("raInput");
+if (raInput) {
+  raInput.value = state.reclameAqui.toFixed(1);
+}
 
 function syncProjectionFields() {
   const formattedProjection = state.projectionCurrent.toFixed(1);
@@ -314,6 +328,7 @@ function render(shouldPersist = true) {
   syncProjectionFields();
   renderSummary();
   renderGrid();
+  updateRA(state.reclameAqui);
 
   if (shouldPersist) {
     persistState();

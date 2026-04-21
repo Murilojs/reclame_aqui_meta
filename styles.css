@@ -453,7 +453,7 @@ button {
 
   color: rgba(255, 255, 255, 0.95); /* 👈 MAIS LEGÍVEL */
 
-  background: rgba(255, 255, 255, 0.20); /* 👈 MAIS PRESENTE */
+  background: rgba(255, 255, 255, 0.50); /* 👈 MAIS PRESENTE */
 
   border: 1px solid rgba(255, 255, 255, 0.25); /* 👈 MAIS DEFINIDO */
 }

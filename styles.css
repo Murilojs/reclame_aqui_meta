@@ -97,7 +97,7 @@ button {
   margin: 0;
   font-size: clamp(1.5rem, 3vw, 2.35rem);
   line-height: 1;
-  color: var(--text-inverse);
+    color: #000000; /* 👈 Título */
 }
 
 .hero__description {

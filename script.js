@@ -105,8 +105,8 @@ if (!initialized) {
   initialize();
   initialized = true;
 } else {
-  render(false);              // 👈 primeiro
-  syncInputsFromState();      // 👈 depois
+  syncInputsFromState();   // 👈 PRIMEIRO
+  render(false);           // 👈 DEPOIS
 }
 
   console.log("🔥 Firebase:", docSnap.data());
@@ -152,8 +152,8 @@ function initialize() {
   bindInputs();
   elements.dailyGoal.disabled = true;
 
-  render(false);              // 👈 PRIMEIRO renderiza
-  syncInputsFromState();      // 👈 DEPOIS joga nos inputs
+  syncInputsFromState();   // 👈 PRIMEIRO
+  render(false);           // 👈 DEPOIS
 }
 
 function loadState() {
@@ -429,8 +429,6 @@ function syncExpectedScoreDisplay() {
 }
 
 function render(shouldPersist = true) {
-
-  state.dailyGoal = calculateDailyGoal();
 
   syncExpectedScoreDisplay();
   syncProjectionFields();

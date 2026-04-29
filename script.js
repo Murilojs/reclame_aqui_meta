@@ -86,26 +86,39 @@ if (user) {
   }
 });
 
+let firstLoad = true;
+
 onSnapshot(docRef, (docSnap) => {
   if (docSnap.exists()) {
+
+    // 🔥 IGNORA PRIMEIRO LOAD DO FIREBASE
+    if (firstLoad) {
+      firstLoad = false;
+      return;
+    }
+
     state = sanitizeState(docSnap.data());
+
     const data = docSnap.data();
 
-if (data.reclameAqui !== undefined) {
-  updateRA(data.reclameAqui);
-}
+    if (data.reclameAqui !== undefined) {
+      updateRA(data.reclameAqui);
+    }
+
   } else {
     state = defaultState;
   }
 
-if (!initialized) {
-  initialize();
-  initialized = true;
-} else {
-  syncInputsFromState();
-  render(false);
-}
+  if (!initialized) {
+    initialize();
+    initialized = true;
+  } else {
+    syncInputsFromState();
+    render(false);
+  }
+  console.log("🔥 Dados vindos do Firebase:", docSnap.data());
 });
+
 let lastAnimationId = null;
 
 let firstLoadAnimation = true;
@@ -656,7 +669,7 @@ function getRAStatus(score) {
 }
 
 function updateRA(score) {
-  if (!score) return;
+  if (score === undefined || score === null) return;
 
   const status = getRAStatus(score);
 

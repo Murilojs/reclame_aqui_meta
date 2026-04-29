@@ -553,7 +553,7 @@ function getRAStatus(score) {
 }
 
 function updateRA(score) {
-  if (!score) return;
+  if (score === undefined || score === null) return;
 
   const status = getRAStatus(score);
 

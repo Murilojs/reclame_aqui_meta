@@ -206,6 +206,100 @@ function normalizeNumber(value, fallback, options = {}) {
   return options.integer ? Math.round(safeValue) : Number(safeValue.toFixed(1));
 }
 
+function getBusinessDaysRemaining() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+
+  const lastDay = new Date(year, month + 1, 0);
+
+  let count = 0;
+
+  for (let d = new Date(today); d <= lastDay; d.setDate(d.getDate() + 1)) {
+    const day = d.getDay();
+
+    const isWeekend = (day === 0 || day === 6);
+    const isHoliday = isBrazilHoliday(d);
+
+    if (!isWeekend && !isHoliday) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+function isBrazilHoliday(date) {
+  const year = date.getFullYear();
+
+  const holidays = [
+    `${year}-01-01`, // Confraternização Universal
+    `${year}-04-21`, // Tiradentes
+    `${year}-05-01`, // Dia do Trabalho
+    `${year}-09-07`, // Independência
+    `${year}-10-12`, // Nossa Senhora Aparecida
+    `${year}-11-02`, // Finados
+    `${year}-11-15`, // Proclamação da República
+    `${year}-12-25`, // Natal
+  ];
+
+  // Páscoa (base pra Carnaval e Corpus Christi)
+  const easter = getEasterDate(year);
+
+  const movableHolidays = [
+    addDays(easter, -47), // Carnaval (segunda)
+    addDays(easter, -46), // Carnaval (terça)
+    addDays(easter, -2),  // Sexta-feira Santa
+    addDays(easter, 60),  // Corpus Christi
+  ];
+
+  const formattedDate = formatDate(date);
+
+  return (
+    holidays.includes(formattedDate) ||
+    movableHolidays.some(d => formatDate(d) === formattedDate)
+  );
+}
+
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
+}
+
+function addDays(date, days) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + days);
+  return newDate;
+}
+
+function getEasterDate(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+  return new Date(year, month - 1, day);
+}
+
+function calculateDailyGoal() {
+  const remaining = state.totalExpected - (state.previousEvaluations + state.positives.length);
+
+  const businessDays = getBusinessDaysRemaining();
+
+  if (businessDays <= 0) return 0;
+
+  return Math.ceil(remaining / businessDays);
+}
+
 function bindInputs() {
   const bindings = [
     {
@@ -219,7 +313,7 @@ function bindInputs() {
       options: { min: 0, max: 10 },
     },
     {
-      element: elements.dailyGoal,
+      element: elements.dailyGoal.disabled = true;
       key: "dailyGoal",
       options: { min: 0, integer: true },
     },

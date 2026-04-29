@@ -51,7 +51,6 @@ const elements = {
   projectionCurrentHeader: document.querySelector("#projectionCurrentHeader"),
   expectedScore: document.querySelector("#expectedScore"),
   projectionCurrent: document.querySelector("#projectionCurrent"),
-  dailyGoal: document.querySelector("#dailyGoal"),
   totalExpected: document.querySelector("#totalExpected"),
   previousEvaluations: document.querySelector("#previousEvaluations"),
   evaluationGrid: document.querySelector("#evaluationGrid"),
@@ -324,11 +323,6 @@ function bindInputs() {
       key: "projectionCurrent",
       options: { min: 0, max: 10 },
     },
-{
-  element: elements.dailyGoal,
-  key: "dailyGoal",
-  options: { min: 0, integer: true },
-},
     {
       element: elements.totalExpected,
       key: "totalExpected",
@@ -394,7 +388,6 @@ function trimTodayEvaluationsToAvailableSlots() {
 
 function syncInputsFromState() {
   elements.expectedScore.value = state.expectedScore.toFixed(1);
-  elements.dailyGoal.value = state.dailyGoal;
   elements.totalExpected.value = state.totalExpected;
   elements.previousEvaluations.value = state.previousEvaluations;
   syncExpectedScoreDisplay();

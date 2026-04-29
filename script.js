@@ -216,15 +216,21 @@ function getBusinessDaysRemaining() {
 
   let count = 0;
 
-  for (let d = new Date(today); d <= lastDay; d.setDate(d.getDate() + 1)) {
-    const day = d.getDay();
+  let current = new Date(today);
+
+  while (current <= lastDay) {
+    const day = current.getDay();
 
     const isWeekend = (day === 0 || day === 6);
-    const isHoliday = isBrazilHoliday(d);
+    const isHoliday = isBrazilHoliday(current);
 
     if (!isWeekend && !isHoliday) {
       count++;
     }
+
+    // 🔥 cria NOVO objeto a cada loop
+    current = new Date(current);
+    current.setDate(current.getDate() + 1);
   }
 
   return count;

@@ -132,6 +132,7 @@ if (data.id !== lastAnimationId) {
 
 function initialize() {
   bindInputs();
+  elements.dailyGoal.disabled = true;  
   syncInputsFromState();
   render(false);
 }
@@ -312,11 +313,11 @@ function bindInputs() {
       key: "projectionCurrent",
       options: { min: 0, max: 10 },
     },
-    {
-      element: elements.dailyGoal.disabled = true;
-      key: "dailyGoal",
-      options: { min: 0, integer: true },
-    },
+{
+  element: elements.dailyGoal,
+  key: "dailyGoal",
+  options: { min: 0, integer: true },
+},
     {
       element: elements.totalExpected,
       key: "totalExpected",

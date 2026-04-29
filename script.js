@@ -100,13 +100,13 @@ onSnapshot(docRef, (docSnap) => {
     state = defaultState;
   }
 
-  if (!initialized) {
-    initialize();
-    initialized = true;
-  } else {
-    syncInputsFromState();
-    render(false); // 🔥 IMPORTANTE: false = NÃO salva de volta
-  }
+if (!initialized) {
+  initialize();
+  initialized = true;
+} else {
+  render(false);              // 👈 primeiro
+  syncInputsFromState();      // 👈 depois
+}
 
   console.log("🔥 Firebase:", docSnap.data());
 });
@@ -136,9 +136,10 @@ if (data.id !== lastAnimationId) {
 
 function initialize() {
   bindInputs();
-  elements.dailyGoal.disabled = true;  
-  syncInputsFromState();
-  render(false);
+  elements.dailyGoal.disabled = true;
+
+  render(false);              // 👈 PRIMEIRO renderiza
+  syncInputsFromState();      // 👈 DEPOIS joga nos inputs
 }
 
 function loadState() {

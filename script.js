@@ -209,13 +209,15 @@ function normalizeNumber(value, fallback, options = {}) {
 
 function getBusinessDaysRemaining() {
   const today = new Date();
+
+  // 🔥 ZERA HORÁRIO (ESSENCIAL)
+  today.setHours(0, 0, 0, 0);
+
   const year = today.getFullYear();
   const month = today.getMonth();
-
   const lastDay = new Date(year, month + 1, 0);
 
   let count = 0;
-
   let current = new Date(today);
 
   while (current <= lastDay) {
@@ -228,8 +230,6 @@ function getBusinessDaysRemaining() {
       count++;
     }
 
-    // 🔥 cria NOVO objeto a cada loop
-    current = new Date(current);
     current.setDate(current.getDate() + 1);
   }
 

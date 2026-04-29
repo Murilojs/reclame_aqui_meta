@@ -5,15 +5,15 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyD6B1h5Q0Necqu-n7I9kG7vmYCzGKmlWmk",
-    authDomain: "meta-reclame-aqui.firebaseapp.com",
-    projectId: "meta-reclame-aqui",
-    storageBucket: "meta-reclame-aqui.firebasestorage.app",
-    messagingSenderId: "314080655380",
-    appId: "1:314080655380:web:534068c653400af2a30f01",
-    measurementId: "G-JSZK9Y4D0K"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAZeJSw2DxVCLuN6PfFINbNw9Lz8UhThPs",
+  authDomain: "meta-reclame-aqui-dev.firebaseapp.com",
+  projectId: "meta-reclame-aqui-dev",
+  storageBucket: "meta-reclame-aqui-dev.firebasestorage.app",
+  messagingSenderId: "52377582463",
+  appId: "1:52377582463:web:c916d2ee9128121eea384a",
+  measurementId: "G-J0NM9N1ZT1"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

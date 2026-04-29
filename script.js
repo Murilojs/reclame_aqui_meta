@@ -1,3 +1,4 @@
+let isLoading = true;
 import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 let initialized = false;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -132,6 +133,19 @@ if (data.id !== lastAnimationId) {
   showAnimation(data.type);
 }
   }
+  if (!initialized) {
+  initialize();
+  initialized = true;
+
+  // 🔥 LIBERA SALVAMENTO SÓ DEPOIS QUE CARREGOU
+  setTimeout(() => {
+    isLoading = false;
+  }, 500);
+
+} else {
+  render(false);
+  syncInputsFromState();
+}
 });
 
 function initialize() {
@@ -416,7 +430,6 @@ function syncExpectedScoreDisplay() {
 
 function render(shouldPersist = true) {
 
-  // 🔥 AQUI entra o cálculo automático
   state.dailyGoal = calculateDailyGoal();
 
   syncExpectedScoreDisplay();
@@ -425,7 +438,8 @@ function render(shouldPersist = true) {
   renderGrid();
   updateRA(state.reclameAqui);
 
-  if (shouldPersist) {
+  // 🚫 NÃO salva durante carregamento
+  if (shouldPersist && !isLoading) {
     persistState();
   }
 }

@@ -86,17 +86,8 @@ if (user) {
   }
 });
 
-let firstLoad = true;
-
 onSnapshot(docRef, (docSnap) => {
   if (docSnap.exists()) {
-
-    // 🔥 IGNORA PRIMEIRO LOAD DO FIREBASE
-    if (firstLoad) {
-      firstLoad = false;
-      return;
-    }
-
     state = sanitizeState(docSnap.data());
 
     const data = docSnap.data();
@@ -114,9 +105,10 @@ onSnapshot(docRef, (docSnap) => {
     initialized = true;
   } else {
     syncInputsFromState();
-    render(false);
+    render(false); // 🔥 IMPORTANTE: false = NÃO salva de volta
   }
-  console.log("🔥 Dados vindos do Firebase:", docSnap.data());
+
+  console.log("🔥 Firebase:", docSnap.data());
 });
 
 let lastAnimationId = null;

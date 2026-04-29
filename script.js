@@ -405,6 +405,10 @@ function syncExpectedScoreDisplay() {
 }
 
 function render(shouldPersist = true) {
+
+  // 🔥 AQUI entra o cálculo automático
+  state.dailyGoal = calculateDailyGoal();
+
   syncExpectedScoreDisplay();
   syncProjectionFields();
   renderSummary();
